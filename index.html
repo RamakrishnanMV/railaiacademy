@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>RailAI Academy</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f6f9;
+}
+
+.header{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px #ccc;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#007bff;
+    color:white;
+    font-size:18px;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.footer{
+    text-align:center;
+    color:gray;
+    margin-top:20px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="header">
+<h2>🚆 RailAI Academy</h2>
+<p>Railway Training Management System</p>
+</div>
+
+<!-- HOME PAGE -->
+
+<div id="home">
+
+<div class="card">
+
+<h3>Welcome</h3>
+
+<p>Select an option</p>
+
+<button onclick="showRegister()">
+Participant Registration
+</button>
+
+<button onclick="showAdmin()">
+Administrator Login
+</button>
+
+<button onclick="alert('Participant Login - Coming Next')">
+Participant Login
+</button>
+
+</div>
+
+</div>
+
+<!-- REGISTRATION PAGE -->
+
+<div id="registerPage" style="display:none;">
+
+<div class="card">
+
+<h3>Participant Registration</h3>
+
+<input id="empno" placeholder="Employee Number"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="empname" placeholder="Employee Name"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="zone" placeholder="Railway Zone"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="division" placeholder="Division"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="department" placeholder="Department"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="designation" placeholder="Designation"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<input id="mobile" placeholder="Mobile Number"
+style="width:100%;padding:12px;margin:6px 0;">
+
+<button onclick="saveRegistration()">
+Submit Registration
+</button>
+
+<button onclick="goHome()"
+style="background:gray;">
+Back
+</button>
+
+</div>
+
+</div>
+<!-- ADMIN PAGE -->
+
+<div id="adminPage" style="display:none;">
+
+<div class="card">
+
+<h3>Administrator Dashboard</h3>
+
+<div id="pendingList"></div>
+
+<button onclick="goHome()" style="background:gray;">
+Back
+</button>
+
+</div>
+
+</div>
+<div class="footer">
+Version 1.0
+</div>
+
+<script>
+
+function showRegister(){
+
+document.getElementById("home").style.display="none";
+document.getElementById("registerPage").style.display="block";
+
+}
+
+function goHome(){
+
+    document.getElementById("home").style.display="block";
+    document.getElementById("registerPage").style.display="none";
+    document.getElementById("adminPage").style.display="none";
+
+}
+
+function saveRegistration(){
+
+let participant={
+
+regNo:"RA"+Date.now(),
+
+empNo:document.getElementById("empno").value,
+
+name:document.getElementById("empname").value,
+
+zone:document.getElementById("zone").value,
+
+division:document.getElementById("division").value,
+
+department:document.getElementById("department").value,
+
+designation:document.getElementById("designation").value,
+
+mobile:document.getElementById("mobile").value,
+
+status:"PENDING"
+
+};
+
+if(participant.empNo=="" || participant.name==""){
+
+alert("Employee Number and Name are mandatory.");
+
+return;
+
+}
+
+
+
+function loadPending(){
+
+let list=JSON.parse(localStorage.getItem("participants")) || [];
+
+let html="";
+
+if(list.length==0){
+
+html="<p>No registrations found.</p>";
+
+}
+else{
+
+for(let i=0;i<list.length;i++){
+
+html+=`
+<div style="border:1px solid #ccc;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;">
+
+<b>${list[i].name}</b><br>
+
+Employee No : ${list[i].empNo}<br>
+
+Registration : ${list[i].regNo}<br>
+
+Status :
+<b>${list[i].status}</b>
+
+<br><br>
+
+<button onclick="approve(${i})">
+Approve
+</button>
+
+</div>
+`;
+
+}
+
+}
+
+document.getElementById("pendingList").innerHTML=html;
+
+}
+
+function approve(index){
+
+let list=JSON.parse(localStorage.getItem("participants"));
+
+list[index].status="APPROVED";
+
+localStorage.setItem("participants",JSON.stringify(list));
+
+alert("Participant Approved Successfully.");
+
+loadPending();
+
+}
+
+let list=JSON.parse(localStorage.getItem("participants")) || [];
+
+list.push(participant);
+
+localStorage.setItem("participants",JSON.stringify(list));
+
+alert("Registration Successful\n\nRegistration No : "+participant.regNo);
+
+document.getElementById("empno").value="";
+document.getElementById("empname").value="";
+document.getElementById("zone").value="";
+document.getElementById("division").value="";
+document.getElementById("department").value="";
+document.getElementById("designation").value="";
+document.getElementById("mobile").value="";
+
+goHome();
+
+}
+function showAdmin(){
+
+    document.getElementById("home").style.display="none";
+    document.getElementById("registerPage").style.display="none";
+    document.getElementById("adminPage").style.display="block";
+
+    loadPending();
+
+}
+</script>
+
+</body>
+</html>
