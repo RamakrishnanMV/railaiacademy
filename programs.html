@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Training Programs</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+<h2>📚 Training Programs</h2>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<input type="text" id="programName" placeholder="Program Name">
+
+<input type="text" id="trainer" placeholder="Trainer">
+
+<input type="text" id="venue" placeholder="Venue">
+
+<input type="date" id="startDate">
+
+<input type="date" id="endDate">
+
+<button onclick="saveProgram()">
+
+Save Program
+
+</button>
+
+<button onclick="location.href='enrollment.html'">
+
+👨‍🎓 Enroll Participants
+
+</button>
+
+</div>
+
+<div id="programList"></div>
+
+<button onclick="location.href='admin-dashboard.html'"
+style="background:gray;">
+
+⬅ Back
+
+</button>
+
+</div>
+
+<script>
+
+function saveProgram(){
+
+let p={
+
+id:Date.now(),
+
+name:document.getElementById("programName").value,
+
+trainer:document.getElementById("trainer").value,
+
+venue:document.getElementById("venue").value,
+
+start:document.getElementById("startDate").value,
+
+end:document.getElementById("endDate").value
+
+};
+
+if(p.name==""){
+
+alert("Enter Program Name");
+
+return;
+
+}
+
+let list=JSON.parse(localStorage.getItem("programs")) || [];
+
+list.push(p);
+
+localStorage.setItem("programs",JSON.stringify(list));
+
+alert("Program Saved Successfully");
+
+document.getElementById("programName").value="";
+document.getElementById("trainer").value="";
+document.getElementById("venue").value="";
+document.getElementById("startDate").value="";
+document.getElementById("endDate").value="";
+
+loadPrograms();
+
+}
+
+function loadPrograms(){
+
+let list=JSON.parse(localStorage.getItem("programs")) || [];
+
+let html="";
+
+if(list.length==0){
+
+html="<div class='card'><h3>No Programs Created</h3></div>";
+
+}
+else{
+
+for(let i=0;i<list.length;i++){
+
+let p=list[i];
+
+html+="<div class='card'>";
+
+html+="<h3>"+p.name+"</h3>";
+
+html+="<p><b>Trainer :</b> "+p.trainer+"</p>";
+
+html+="<p><b>Venue :</b> "+p.venue+"</p>";
+
+html+="<p><b>Duration :</b> "+p.start+" to "+p.end+"</p>";
+
+html+="</div>";
+
+}
+
+}
+
+document.getElementById("programList").innerHTML=html;
+
+}
+
+loadPrograms();
+
+</script>
+
+</body>
+
+</html>

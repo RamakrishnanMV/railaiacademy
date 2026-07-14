@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Program Enrollment</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>👨‍🎓 Program Enrollment</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<label>Select Program</label>
+
+<select id="program"></select>
+
+</div>
+
+<div id="participantList"></div>
+
+<button onclick="saveEnrollment()">
+
+Save Enrollment
+
+</button>
+
+<br><br>
+
+<button onclick="location.href='programs.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+<script>
+
+loadPrograms();
+loadParticipants();
+
+function loadPrograms(){
+
+let list=JSON.parse(localStorage.getItem("programs")) || [];
+
+let html="";
+
+for(let i=0;i<list.length;i++){
+
+html+="<option value='"+list[i].id+"'>"+list[i].name+"</option>";
+
+}
+
+document.getElementById("program").innerHTML=html;
+
+}
+
+function loadParticipants(){
+
+let participants=JSON.parse(localStorage.getItem("participants")) || [];
+
+let html="";
+
+participants.forEach(function(p){
+
+if(p.status=="APPROVED"){
+
+html+="<div class='card'>";
+
+html+="<label>";
+
+html+="<input type='checkbox' value='"+p.empNo+"' class='chk'> ";
+
+html+=p.name+" ("+p.empNo+")";
+
+html+="</label>";
+
+html+="</div>";
+
+}
+
+});
+
+document.getElementById("participantList").innerHTML=html;
+
+}
+
+function saveEnrollment(){
+
+let program=document.getElementById("program").value;
+
+let checks=document.getElementsByClassName("chk");
+
+let list=JSON.parse(localStorage.getItem("enrollments")) || [];
+
+for(let i=0;i<checks.length;i++){
+
+if(checks[i].checked){
+
+list.push({
+
+program:program,
+
+empNo:checks[i].value
+
+});
+
+}
+
+}
+
+localStorage.setItem("enrollments",JSON.stringify(list));
+
+alert("Participants Enrolled Successfully");
+
+}
+
+</script>
+
+</body>
+
+</html>

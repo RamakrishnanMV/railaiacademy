@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Participant Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>🎓 Participant Dashboard</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3 id="name"></h3>
+
+<p id="emp"></p>
+
+<p id="zone"></p>
+
+</div>
+
+<h3>My Training Programs</h3>
+
+<div id="programList"></div>
+
+<button onclick="location.href='materials.html'">
+
+📄 Training Materials
+
+</button>
+<button onclick="location.href='ai-assistant.html'">
+
+🤖 Ask RailAI
+
+</button>
+
+<button onclick="location.href='certificate.html'">
+
+🏆 My Certificate
+
+</button>
+
+<button onclick="location.href='feedback.html'">
+
+📝 Feedback
+
+</button>
+
+<button onclick="logout()" style="background:red;">
+
+Logout
+
+</button>
+
+</div>
+
+<script>
+
+let participant=JSON.parse(localStorage.getItem("currentParticipant"));
+
+if(!participant){
+
+location.href="participant-login.html";
+
+}
+
+document.getElementById("name").innerHTML="Welcome "+participant.name;
+
+document.getElementById("emp").innerHTML="Employee No : "+participant.empNo;
+
+document.getElementById("zone").innerHTML="Zone : "+participant.zone;
+
+loadPrograms();
+
+function loadPrograms(){
+
+let enrollments=JSON.parse(localStorage.getItem("enrollments")) || [];
+
+let programs=JSON.parse(localStorage.getItem("programs")) || [];
+
+let html="";
+
+for(let i=0;i<enrollments.length;i++){
+
+if(enrollments[i].empNo==participant.empNo){
+
+for(let j=0;j<programs.length;j++){
+
+if(programs[j].id==enrollments[i].program){
+
+html+="<div class='card'>";
+
+html+="<h3>"+programs[j].name+"</h3>";
+
+html+="Trainer : "+programs[j].trainer+"<br>";
+
+html+="Venue : "+programs[j].venue+"<br>";
+
+html+="Duration : "+programs[j].start+" to "+programs[j].end;
+
+html+="</div>";
+
+}
+
+}
+
+}
+
+}
+
+if(html==""){
+
+html="<div class='card'><h3>No Programs Assigned</h3></div>";
+
+}
+
+document.getElementById("programList").innerHTML=html;
+
+}
+
+function logout(){
+
+localStorage.removeItem("currentParticipant");
+
+location.href="index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

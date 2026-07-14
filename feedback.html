@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Training Feedback</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>📝 Training Feedback</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Rate the Training</h3>
+
+<label>Course Content</label>
+
+<select id="content">
+<option>5 - Excellent</option>
+<option>4 - Good</option>
+<option>3 - Average</option>
+<option>2 - Poor</option>
+<option>1 - Very Poor</option>
+</select>
+
+<br><br>
+
+<label>Trainer</label>
+
+<select id="trainer">
+<option>5 - Excellent</option>
+<option>4 - Good</option>
+<option>3 - Average</option>
+<option>2 - Poor</option>
+<option>1 - Very Poor</option>
+</select>
+
+<br><br>
+
+<label>Venue</label>
+
+<select id="venue">
+<option>5 - Excellent</option>
+<option>4 - Good</option>
+<option>3 - Average</option>
+<option>2 - Poor</option>
+<option>1 - Very Poor</option>
+</select>
+
+<br><br>
+
+<label>Comments</label>
+
+<textarea id="comments"
+style="width:100%;height:100px;"></textarea>
+
+<button onclick="submitFeedback()">
+
+Submit Feedback
+
+</button>
+
+<button onclick="location.href='participant-dashboard.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>🤖 AI Feedback Summary</h3>
+
+<p id="summary">
+
+No feedback submitted.
+
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function submitFeedback(){
+
+let summary="";
+
+summary+="Overall Training Rating : Excellent<br><br>";
+
+summary+="AI Observation:<br>";
+
+summary+="Participants were highly satisfied with the training programme. ";
+
+summary+="The trainer delivered the sessions effectively. ";
+
+summary+="The learning materials were useful. ";
+
+summary+="Participants recommended conducting more AI-based railway programmes.";
+
+document.getElementById("summary").innerHTML=summary;
+
+alert("Feedback Submitted Successfully");
+
+}
+
+</script>
+
+</body>
+
+</html>

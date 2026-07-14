@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Participant Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>👨‍🎓 Participant Login</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<input
+type="text"
+id="empno"
+placeholder="Employee Number">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
+<button
+onclick="location.href='index.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+let emp=document.getElementById("empno").value;
+
+let participants=JSON.parse(localStorage.getItem("participants")) || [];
+
+let found=false;
+
+for(let i=0;i<participants.length;i++){
+
+if(participants[i].empNo==emp){
+
+found=true;
+
+if(participants[i].status=="PENDING"){
+
+alert("Your registration is awaiting administrator approval.");
+
+return;
+
+}
+
+if(participants[i].status=="REJECTED"){
+
+alert("Your registration has been rejected.");
+
+return;
+
+}
+
+if(participants[i].status=="APPROVED"){
+
+localStorage.setItem("currentParticipant",JSON.stringify(participants[i]));
+
+location.href="participant-dashboard.html";
+
+return;
+
+}
+
+}
+
+}
+
+if(!found){
+
+alert("Participant not found.");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

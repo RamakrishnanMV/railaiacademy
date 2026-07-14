@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pending Approvals</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="header">
+<h2>✅ Pending Approvals</h2>
+</div>
+
+<div class="container">
+
+<div id="list"></div>
+
+<button onclick="location.href='admin-dashboard.html'" style="background:gray;">
+⬅ Back
+</button>
+
+</div>
+
+<script>
+
+function loadParticipants(){
+
+    let participants = JSON.parse(localStorage.getItem("participants")) || [];
+
+    let html = "";
+
+    if(participants.length==0){
+
+        html += "<div class='card'>";
+        html += "<h3>No Registrations Found</h3>";
+        html += "</div>";
+
+    }else{
+
+        for(let i=0;i<participants.length;i++){
+
+            let p = participants[i];
+
+            html += "<div class='card'>";
+
+            html += "<h3>"+p.name+"</h3>";
+
+            html += "<p><b>Registration No :</b> "+p.regNo+"</p>";
+
+            html += "<p><b>Employee No :</b> "+p.empNo+"</p>";
+
+            html += "<p><b>Zone :</b> "+p.zone+"</p>";
+
+            html += "<p><b>Division :</b> "+p.division+"</p>";
+
+            html += "<p><b>Status :</b> "+p.status+"</p>";
+
+            if(p.status=="PENDING"){
+
+                html += "<button onclick='approveParticipant("+i+")'>✅ Approve</button>";
+
+                html += "<br><br>";
+
+                html += "<button onclick='rejectParticipant("+i+")' style='background:red;'>❌ Reject</button>";
+
+            }
+
+            if(p.status=="APPROVED"){
+
+                html += "<h3 style='color:green'>APPROVED</h3>";
+
+            }
+
+            if(p.status=="REJECTED"){
+
+                html += "<h3 style='color:red'>REJECTED</h3>";
+
+            }
+
+            html += "</div>";
+
+        }
+
+    }
+
+    document.getElementById("list").innerHTML = html;
+
+}
+
+function approveParticipant(index){
+
+    let participants = JSON.parse(localStorage.getItem("participants")) || [];
+
+    participants[index].status="APPROVED";
+
+    localStorage.setItem("participants",JSON.stringify(participants));
+
+    alert("Participant Approved Successfully");
+
+    loadParticipants();
+
+}
+
+function rejectParticipant(index){
+
+    let participants = JSON.parse(localStorage.getItem("participants")) || [];
+
+    participants[index].status="REJECTED";
+
+    localStorage.setItem("participants",JSON.stringify(participants));
+
+    alert("Participant Rejected");
+
+    loadParticipants();
+
+}
+
+loadParticipants();
+
+</script>
+
+</body>
+
+</html>

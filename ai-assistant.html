@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>RailAI Assistant</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.answer{
+background:#ffffff;
+padding:15px;
+margin-top:20px;
+border-radius:8px;
+box-shadow:0 0 10px #ccc;
+}
+
+textarea{
+width:100%;
+height:100px;
+padding:10px;
+font-size:16px;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>🤖 RailAI Assistant</h2>
+
+<p>AI Powered Railway Training Assistant</p>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Ask AI</h3>
+
+<textarea id="question"
+placeholder="Example:
+What is Artificial Intelligence?"></textarea>
+
+<button onclick="askAI()">
+
+Ask AI
+
+</button>
+
+<button onclick="location.href='participant-dashboard.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+<div class="answer">
+
+<h3>AI Response</h3>
+
+<p id="reply">
+
+Ask a question to start.
+
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function askAI(){
+
+let q=document.getElementById("question").value.toLowerCase();
+
+let ans="";
+
+if(q.includes("artificial intelligence") || q.includes("ai")){
+
+ans="Artificial Intelligence enables computers to perform tasks that normally require human intelligence. In Indian Railways, AI can be used for predictive maintenance, safety monitoring, passenger services, timetable optimization and asset management.";
+
+}
+
+else if(q.includes("railway")){
+
+ans="AI can improve railway operations through predictive maintenance, automatic inspection of tracks, crowd management, timetable optimization, energy efficiency and passenger assistance.";
+
+}
+
+else if(q.includes("safety")){
+
+ans="AI improves railway safety by detecting track defects, monitoring CCTV footage, identifying unsafe situations and predicting equipment failures before accidents occur.";
+
+}
+
+else if(q.includes("training")){
+
+ans="AI makes training personalized by recommending learning materials, generating quizzes, answering learner questions and analyzing participant feedback.";
+
+}
+
+else{
+
+ans="Thank you for your question. Based on the available training knowledge, AI can improve productivity, decision making and operational efficiency across railway departments.";
+
+}
+
+document.getElementById("reply").innerHTML=ans;
+
+}
+
+</script>
+
+</body>
+
+</html>

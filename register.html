@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Participant Registration</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>📝 Participant Registration</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<input type="text" id="empno" placeholder="Employee Number">
+
+<input type="text" id="empname" placeholder="Employee Name">
+
+<input type="text" id="zone" placeholder="Railway Zone">
+
+<input type="text" id="division" placeholder="Division">
+
+<input type="text" id="department" placeholder="Department">
+
+<input type="text" id="designation" placeholder="Designation">
+
+<input type="text" id="mobile" placeholder="Mobile Number">
+
+<input type="email" id="email" placeholder="Official Email">
+
+<button onclick="registerParticipant()">
+
+Register
+
+</button>
+
+<button onclick="location.href='index.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function registerParticipant(){
+
+let participant={
+
+regNo:"RA"+Date.now(),
+
+empNo:document.getElementById("empno").value,
+
+name:document.getElementById("empname").value,
+
+zone:document.getElementById("zone").value,
+
+division:document.getElementById("division").value,
+
+department:document.getElementById("department").value,
+
+designation:document.getElementById("designation").value,
+
+mobile:document.getElementById("mobile").value,
+
+email:document.getElementById("email").value,
+
+status:"PENDING"
+
+};
+
+if(participant.empNo=="" || participant.name==""){
+
+alert("Employee Number and Employee Name are mandatory.");
+
+return;
+
+}
+
+let list=JSON.parse(localStorage.getItem("participants")) || [];
+
+list.push(participant);
+
+localStorage.setItem("participants",JSON.stringify(list));
+
+alert("Registration Successful\n\nRegistration No : "+participant.regNo);
+
+location.href="index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

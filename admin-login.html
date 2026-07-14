@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Administrator Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>Administrator Login</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<input
+type="text"
+id="username"
+placeholder="Username">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
+<button
+onclick="location.href='index.html'"
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+let u=document.getElementById("username").value;
+
+let p=document.getElementById("password").value;
+
+if(u=="admin" && p=="admin123"){
+
+location.href="admin-dashboard.html";
+
+}
+else{
+
+alert("Invalid Username or Password");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

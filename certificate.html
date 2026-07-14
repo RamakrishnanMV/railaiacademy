@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificate</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.certificate{
+
+background:white;
+
+border:8px solid #003366;
+
+padding:30px;
+
+margin-top:20px;
+
+text-align:center;
+
+border-radius:10px;
+
+}
+
+h1{
+
+color:#003366;
+
+}
+
+.name{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#d32f2f;
+
+margin:20px;
+
+}
+
+.course{
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+.sign{
+
+margin-top:60px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>🏆 Certificate</h2>
+
+</div>
+
+<div class="container">
+
+<div class="certificate">
+
+<h1>RailAI Academy</h1>
+
+<h2>Certificate of Participation</h2>
+
+<p>This is to certify that</p>
+
+<div class="name" id="pname"></div>
+
+<p>Employee Number</p>
+
+<h3 id="emp"></h3>
+
+<p>has successfully completed the training programme</p>
+
+<div class="course">
+
+Artificial Intelligence for Indian Railways
+
+</div>
+
+<p>Date : 15 July 2026</p>
+
+<div class="sign">
+
+<div>
+
+_________________
+
+<br>
+
+Trainer
+
+</div>
+
+<div>
+
+_________________
+
+<br>
+
+Director
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<button onclick="window.print()">
+
+🖨 Print Certificate
+
+</button>
+
+<button onclick="location.href='participant-dashboard.html'"
+
+style="background:gray;">
+
+Back
+
+</button>
+
+</div>
+
+<script>
+
+let p=JSON.parse(localStorage.getItem("currentParticipant"));
+
+if(p){
+
+document.getElementById("pname").innerHTML=p.name;
+
+document.getElementById("emp").innerHTML=p.empNo;
+
+}
+
+</script>
+
+</body>
+
+</html>
